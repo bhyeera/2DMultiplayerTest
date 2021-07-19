@@ -9,7 +9,7 @@ public class CoinScript : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
            print(collision.gameObject.tag);
-            collision.gameObject.GetComponent<PlayerMovement.PlayerMovementController>().IncrementScore(1);
+           collision.gameObject.GetComponent<PlayerMovement.PlayerMovementController>().IncrementScore(1);
            Destroy(this.gameObject);
         } 
     }

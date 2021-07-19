@@ -22,10 +22,13 @@ namespace PlayerMovement {
         public bool isJumping;
         public bool isGrounded;
         public bool isFalling;
-
+        // jump mechanics
         [Header("Inputs")]
         public bool jumpInput;
-
+        public int jumpCount = 0;
+        public int allowedJumps = 1;
+        public float jumpTimer = 0.0f;
+        public bool firstJump = true;
 
         public int playerScore;
         public Text scoreUI;
@@ -37,7 +40,7 @@ namespace PlayerMovement {
         }
         void Start()
         {
-
+            scoreUI.text = "0";
         }
         void Update()
         {
@@ -46,6 +49,7 @@ namespace PlayerMovement {
         }
         void FixedUpdate()
         {
+            jumpTimer += Time.fixedDeltaTime;
             ApplyMovement();
             Jump();
             GroundCheck();
@@ -73,16 +77,30 @@ namespace PlayerMovement {
         }
         private void Jump()
         {
-            if (jumpInput && !isJumping)
+            if (jumpInput)
             {
-                rigidBodyInstance.velocity = new Vector2(rigidBodyInstance.velocity.x, jumpForce);
-                isJumping = true;
-                playerAnimator.Play("Jump");
-            }
+                print(jumpCount);
 
+                if (jumpTimer >= 0.25f || firstJump)
+                {
+                    firstJump = false;
+                    if (jumpCount < allowedJumps)
+                    {
+                        rigidBodyInstance.velocity = new Vector2(rigidBodyInstance.velocity.x, jumpForce);
+                        playerAnimator.Play("Jump");
+                        isJumping = true;
+                        jumpTimer = 0.0f;
+                        jumpCount++;
+                    }
+                }
+
+            }
             if (isGrounded)
             {
                 isJumping = false;
+                jumpCount = 0;
+                jumpTimer = 0.0f;
+                firstJump = true;
             }
         }
 
