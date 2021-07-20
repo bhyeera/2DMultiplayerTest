@@ -2,14 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using PlayerMovement;
-public class CoinScript : MonoBehaviour
+
+
+namespace Coin
 {
-    public void OnCollisionEnter2D(Collision2D collision)
+    public class CoinScript : ApplicationElement
     {
-        if (collision.gameObject.tag == "Player")
+        public void OnCollisionEnter2D(Collision2D collision)
         {
-            collision.gameObject.GetComponent<PlayerMovementController>().IncrementScore(1);
-            Destroy(this.gameObject);
-        } 
+            if (collision.gameObject.tag == "Player")
+            {
+                app.playerMovement.IncrementScore(1);
+                Destroy(this.gameObject);
+            }
+        }
     }
 }

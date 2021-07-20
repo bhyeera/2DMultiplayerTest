@@ -2,16 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UIManager;
 
-namespace PlayerMovement { 
-    public class PlayerMovementController : MonoBehaviour
+namespace PlayerMovement
+{ 
+    public class PlayerMovementController : ApplicationElement
     {
         public Animator playerAnimator;
 
-        private float movementInputDirection;
+        public float movementInputDirection;
         public float playerSpeed = 10.0f;
         public float jumpForce = 0.1f;
-        private Rigidbody2D rigidBodyInstance;
+        public Rigidbody2D rigidBodyInstance;
 
         public Transform groundCheckPosition;
         public float groundCheckRadius;
@@ -31,39 +33,25 @@ namespace PlayerMovement {
         public bool firstJump = true;
 
         public int playerScore;
-        public Text scoreUI;
+
+        //[Header("Managers")]
+        //public UIManager.UIManager uiManager;
 
         private void Awake()
         {
             playerAnimator = GetComponent<Animator>();
             rigidBodyInstance = GetComponent<Rigidbody2D>();
         }
-        void Start()
-        {
-           scoreUI.text = "0";
-        }
-        void Update()
-        {
-            CheckInput();
-            AnimatorValues();
-        }
-        void FixedUpdate()
-        {
-            jumpTimer += Time.fixedDeltaTime;
-            ApplyMovement();
-            Jump();
-            GroundCheck();
-        }
-        private void CheckInput()
+        public void CheckInput()
         {
             movementInputDirection = Input.GetAxisRaw("Horizontal");
             jumpInput = Input.GetButton("Jump");
         }
-        private void AnimatorValues()
+        public void AnimatorValues()
         {
             playerAnimator.SetFloat("horizontal", movementInputDirection);
         }
-        private void ApplyMovement()
+        public void ApplyMovement()
         {
             rigidBodyInstance.velocity = new Vector2(playerSpeed * movementInputDirection, rigidBodyInstance.velocity.y);
             if (rigidBodyInstance.velocity.x > 0 || rigidBodyInstance.velocity.x < 0)
@@ -75,7 +63,7 @@ namespace PlayerMovement {
                 isMoving = false;
             }
         }
-        private void Jump()
+        public void Jump()
         {
             if (jumpInput)
             {
@@ -102,12 +90,12 @@ namespace PlayerMovement {
             }
         }
 
-        private void GroundCheck()
+        public void GroundCheck()
         {
             isGrounded = Physics2D.OverlapCircle(groundCheckPosition.position, groundCheckRadius, groundLayer);
 
         }
-        private void OnDrawGizmos()
+        public void OnDrawGizmos()
         {
             Gizmos.DrawWireSphere(groundCheckPosition.position,groundCheckRadius);
         }
@@ -115,7 +103,6 @@ namespace PlayerMovement {
         public void IncrementScore(int i)
         {
             playerScore += i;
-           (GameObject.FindWithTag("player_score")).GetComponent<Text>().text = playerScore.ToString();
         }
     }
 }
