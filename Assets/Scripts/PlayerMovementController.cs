@@ -40,7 +40,7 @@ namespace PlayerMovement {
         }
         void Start()
         {
-            scoreUI.text = "0";
+           scoreUI.text = "0";
         }
         void Update()
         {
@@ -79,8 +79,6 @@ namespace PlayerMovement {
         {
             if (jumpInput)
             {
-                print(jumpCount);
-
                 if (jumpTimer >= 0.25f || firstJump)
                 {
                     firstJump = false;
@@ -117,7 +115,7 @@ namespace PlayerMovement {
         public void IncrementScore(int i)
         {
             playerScore += i;
-            scoreUI.text = playerScore.ToString();
+           (GameObject.FindWithTag("player_score")).GetComponent<Text>().text = playerScore.ToString();
         }
     }
 }
