@@ -12,7 +12,7 @@ namespace Coin
         {
             if (collision.gameObject.tag == "Player")
             {
-                app.playerMovement.IncrementScore(1);
+                app.playerManager.playerMovementController.IncrementScore(1);
                 Destroy(this.gameObject);
             }
         }

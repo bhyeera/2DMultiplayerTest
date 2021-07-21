@@ -25,8 +25,7 @@ namespace PlayerMovement
         public bool isGrounded;
         public bool isFalling;
         // jump mechanics
-        [Header("Inputs")]
-        public bool jumpInput;
+
         public int jumpCount = 0;
         public int allowedJumps = 1;
         public float jumpTimer = 0.0f;
@@ -34,18 +33,18 @@ namespace PlayerMovement
 
         public int playerScore;
 
-        //[Header("Managers")]
-        //public UIManager.UIManager uiManager;
-
         private void Awake()
         {
             playerAnimator = GetComponent<Animator>();
             rigidBodyInstance = GetComponent<Rigidbody2D>();
         }
-        public void CheckInput()
+        public void MovementTick()
         {
-            movementInputDirection = Input.GetAxisRaw("Horizontal");
-            jumpInput = Input.GetButton("Jump");
+            float fixedDelta = Time.fixedDeltaTime;
+            jumpTimer += fixedDelta;
+            Jump();
+            GroundCheck();
+            ApplyMovement();
         }
         public void AnimatorValues()
         {
@@ -53,6 +52,7 @@ namespace PlayerMovement
         }
         public void ApplyMovement()
         {
+            movementInputDirection = app.inputManager.horizontal;
             rigidBodyInstance.velocity = new Vector2(playerSpeed * movementInputDirection, rigidBodyInstance.velocity.y);
             if (rigidBodyInstance.velocity.x > 0 || rigidBodyInstance.velocity.x < 0)
             {
@@ -65,7 +65,7 @@ namespace PlayerMovement
         }
         public void Jump()
         {
-            if (jumpInput)
+            if (app.inputManager.jumpInput)
             {
                 if (jumpTimer >= 0.25f || firstJump)
                 {

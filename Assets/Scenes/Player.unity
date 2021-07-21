@@ -294,7 +294,9 @@ GameObject:
   - component: {fileID: 390205901}
   - component: {fileID: 390205900}
   - component: {fileID: 390205905}
+  - component: {fileID: 390205907}
   - component: {fileID: 390205906}
+  - component: {fileID: 390205908}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -461,7 +463,6 @@ MonoBehaviour:
   isJumping: 0
   isGrounded: 0
   isFalling: 0
-  jumpInput: 0
   jumpCount: 0
   allowedJumps: 1
   jumpTimer: 0
@@ -476,10 +477,44 @@ MonoBehaviour:
   m_GameObject: {fileID: 390205899}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 389a4533fcfa53346b03523091932b3c, type: 3}
+  m_Script: {fileID: 11500000, guid: a8dd1acf9a2ffa84b81afbcfed9fa47c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerScore: 0
+  maxHealth: 100
+  level: 1
+  currentLevel: 1
+  currentHealth: 0
+  currentMaxHealth: 0
+  playerName: Pilinha
+--- !u!114 &390205907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 390205899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f50e72756142b742aac0a31ad37250c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMovementController: {fileID: 0}
+  playerStats: {fileID: 0}
+--- !u!114 &390205908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 390205899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1136a5f6300f612478e028c7165c2a9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  horizontal: 0
+  vertical: 0
+  jumpInput: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
