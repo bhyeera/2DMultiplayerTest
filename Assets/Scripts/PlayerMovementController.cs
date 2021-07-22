@@ -2,12 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UIManager;
 
-namespace PlayerMovement
-{ 
-    public class PlayerMovementController : ApplicationElement
-    {
+    public class PlayerMovementController : MonoBehaviour
+{
         public Animator playerAnimator;
 
         public float movementInputDirection;
@@ -30,9 +27,6 @@ namespace PlayerMovement
         public int allowedJumps = 1;
         public float jumpTimer = 0.0f;
         public bool firstJump = true;
-
-        public int playerScore;
-
         private void Awake()
         {
             playerAnimator = GetComponent<Animator>();
@@ -52,7 +46,7 @@ namespace PlayerMovement
         }
         public void ApplyMovement()
         {
-            movementInputDirection = app.inputManager.horizontal;
+            movementInputDirection = MainApplication.instance.inputManager.horizontal;
             rigidBodyInstance.velocity = new Vector2(playerSpeed * movementInputDirection, rigidBodyInstance.velocity.y);
             if (rigidBodyInstance.velocity.x > 0 || rigidBodyInstance.velocity.x < 0)
             {
@@ -65,7 +59,7 @@ namespace PlayerMovement
         }
         public void Jump()
         {
-            if (app.inputManager.jumpInput)
+            if (MainApplication.instance.inputManager.jumpInput)
             {
                 if (jumpTimer >= 0.25f || firstJump)
                 {
@@ -99,10 +93,4 @@ namespace PlayerMovement
         {
             Gizmos.DrawWireSphere(groundCheckPosition.position,groundCheckRadius);
         }
-
-        public void IncrementScore(int i)
-        {
-            playerScore += i;
-        }
     }
-}

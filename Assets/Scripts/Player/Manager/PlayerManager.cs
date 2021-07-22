@@ -2,19 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerManager : ApplicationElement
+public class PlayerManager : MonoBehaviour
 {
-    public PlayerMovement.PlayerMovementController playerMovementController;
+    public PlayerMovementController playerMovementController;
     public PlayerStats playerStats;
 
     private void Awake()
     {
-        playerMovementController = GetComponent<PlayerMovement.PlayerMovementController>();
+        playerMovementController = GetComponent<PlayerMovementController>();
         playerStats = GetComponent<PlayerStats>();
     }
     private void Start()
     {
-        app.playerManager.playerStats.SetPlayerHealth();
+        playerStats.SetPlayerHealth();
     }
     private void Update()
     {

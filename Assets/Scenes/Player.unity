@@ -467,7 +467,6 @@ MonoBehaviour:
   allowedJumps: 1
   jumpTimer: 0
   firstJump: 1
-  playerScore: 0
 --- !u!114 &390205906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -486,6 +485,7 @@ MonoBehaviour:
   currentHealth: 0
   currentMaxHealth: 0
   playerName: Pilinha
+  playerScore: 0
 --- !u!114 &390205907
 MonoBehaviour:
   m_ObjectHideFlags: 0

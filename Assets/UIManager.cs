@@ -4,10 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-namespace UIManager
+    public class UIManager : MonoBehaviour
 {
-    public class UIManager : ApplicationElement
-    {
         public Text scoreUI;
 
         private void Awake()
@@ -16,11 +14,11 @@ namespace UIManager
         }
         private void Start()
         {
+            MainApplication.instance.scoreIncrement += SetScore;
             scoreUI.text = "0";
         }
-        public void SetScore(string score)
+        public void SetScore()
         {
-           scoreUI.text = score;
+           scoreUI.text = MainApplication.instance.playerManager.playerStats.playerScore.ToString();
         }
     }
-}
